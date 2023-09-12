@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "main.h"
+#include "config.h"
 #include "hardware/sdset.h"
 #include "hardware/hardware.h"
 #include "callback.h"

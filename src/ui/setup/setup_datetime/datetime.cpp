@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "main.h"
+#include "config.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_datetime/datetime.h"

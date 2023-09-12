@@ -6,7 +6,7 @@
 // #include "hardware/json_psram_allocator.h"
 // #include "hardware/alloc.h"
 
-#include "main.h"
+#include "config.h"
 #include "hardware/powerset.h"
 #include "hardware/wifiset.h"
 #include "ui/ui.h"
@@ -185,7 +185,7 @@ void openAppwifi(){
     lv_obj_set_align(ui_wifispinner,LV_ALIGN_TOP_RIGHT);
 
     listwifi = lv_list_create(ui_wifiScreen);
-    lv_obj_set_size(listwifi, 320, 280);
+    lv_obj_set_size(listwifi, 320, 260);
     lv_obj_set_x(listwifi, 0);
     lv_obj_set_y(listwifi, 220);
     lv_obj_set_align(listwifi, LV_ALIGN_TOP_MID);
@@ -247,9 +247,9 @@ void openAppwifi(){
         lv_obj_clear_state(ui_wifiswitch_standby, LV_STATE_CHECKED); 
         log_i("STANBY GET TRUE");     
     }
-
-    wifictl_register_cb( WIFICTL_ON | WIFICTL_OFF | WIFICTL_SCAN , wifi_setup_wifictl_event_cb, "wifi network scan" );
     wifictl_register_cb( WIFICTL_AUTOON, wifi_setup_autoon_event_cb, "wifi setup");
+    wifictl_register_cb( WIFICTL_ON | WIFICTL_OFF | WIFICTL_SCAN , wifi_setup_wifictl_event_cb, "wifi network scan" );
+    
 }
 
 bool wifi_setup_wifictl_event_cb( EventBits_t event, void *arg ) {

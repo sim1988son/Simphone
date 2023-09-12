@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <string.h>
-#include "main.h"
+#include "config.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_about/about.h"

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "main.h"
+#include "config.h"
 #include "ui/ui.h"
 #include "hardware/displayset.h"
 #include "ui/setup/setup.h"

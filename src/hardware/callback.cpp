@@ -1,7 +1,7 @@
 
 // #include "config.h"
 #include <Arduino.h>
-#include "main.h"
+#include "config.h"
 #include "callback.h"
 #include "alloc.h"
 

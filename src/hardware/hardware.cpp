@@ -1,4 +1,4 @@
-#include "main.h"
+#include "config.h"
 
 #include "hardware/hardware.h"
 #include "hardware/wifiset.h"
@@ -10,7 +10,7 @@
 void hardware_setup( void ){
 
     splash_screen_stage_boot();
-    splash_screen_stage_update( "SIMCOM", 100 );
+    // splash_screen_stage_update( "SIMCOM", 100 );
 
     //splash_screen_stage_update( "init SPIFF & SD", 20 );
     sdset_setup();
@@ -24,7 +24,7 @@ void hardware_setup( void ){
 
     //splash_screen_stage_update( "init gui", 80 );
     //splash_screen_stage_update( "init gui", 100 );
-    splash_screen_stage_finish();
+    // splash_screen_stage_finish();
 }
 
 

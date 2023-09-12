@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "main.h"
+#include "config.h"
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <esp_wps.h>
@@ -17,7 +17,7 @@ EventGroupHandle_t wifictl_status = NULL;
 portMUX_TYPE DRAM_ATTR wifictlMux = portMUX_INITIALIZER_UNLOCKED;
 callback_t *wifictl_callback = NULL;
 
-void wifictl_send_event_cb( EventBits_t event, char *msg );
+// void wifictl_send_event_cb( EventBits_t event, char *msg );
 bool wifictl_power_event_cb( EventBits_t event, void *arg );
 
 // void wifictl_StartTask( void );

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "main.h"
+#include "config.h"
 #include "hardware/powerset.h"
 #include "hardware/displayset.h"
 #include "hardware/sdset.h"
@@ -904,21 +904,21 @@ void splash_screen_stage_boot(){
     lv_label_set_text(ui_bootlabel, LV_SYMBOL_POWER);
     lv_obj_set_style_text_font(ui_bootlabel, &lv_font_montserrat_48, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    preload = lv_bar_create(ui_bootScreen);
-    lv_obj_set_size(preload, 240, 20);
-    lv_bar_set_value(preload, 0, LV_ANIM_ON);
-    lv_obj_align(preload, LV_ALIGN_BOTTOM_MID, 0, -50);
-    lv_obj_set_style_bg_opa(preload, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(preload, lv_color_black(), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(preload, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_all(preload, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(preload, lv_color_black(), LV_PART_INDICATOR);
-    lv_obj_set_style_anim_time( preload, 2500, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // preload = lv_bar_create(ui_bootScreen);
+    // lv_obj_set_size(preload, 240, 20);
+    // lv_bar_set_value(preload, 0, LV_ANIM_ON);
+    // lv_obj_align(preload, LV_ALIGN_BOTTOM_MID, 0, -50);
+    // lv_obj_set_style_bg_opa(preload, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_color(preload, lv_color_black(), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_width(preload, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_pad_all(preload, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_bg_color(preload, lv_color_black(), LV_PART_INDICATOR);
+    // lv_obj_set_style_anim_time( preload, 2500, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
-    preload_label = lv_label_create(ui_bootScreen);
-    lv_label_set_text( preload_label, "booting" );
-    lv_obj_align(preload_label, LV_ALIGN_BOTTOM_MID, 0, -30);
+    // preload_label = lv_label_create(ui_bootScreen);
+    // lv_label_set_text( preload_label, "booting" );
+    // lv_obj_align(preload_label, LV_ALIGN_BOTTOM_MID, 0, -30);
 
     lv_timer_handler();
 
@@ -926,25 +926,36 @@ void splash_screen_stage_boot(){
         tftt.setBrightness( bl );
         delay(5);
     }  
-}
-
-void splash_screen_stage_update( const char* msg, int value ) {;
-    lv_disp_trig_activity( NULL );
     lv_timer_handler();
-    //delay(100);
-    lv_bar_set_value( preload, value, LV_ANIM_ON );
-    lv_label_set_text( preload_label, msg );
-    lv_timer_handler();
-    delay(500);
-}
-
-void splash_screen_stage_finish( void ) {
+    delay(1000);
     for( int bl = display_get_display_brig() ; bl >= 0 ; bl-- ) {
         tftt.setBrightness( bl );
         delay(5);
     }
     lv_obj_del(ui_bootScreen);
     lv_timer_handler();
+}
+
+void splash_screen_stage_update( const char* msg, int value ) {;
+    // lv_disp_trig_activity( NULL );
+    // lv_timer_handler();
+    // //delay(100);
+    // lv_bar_set_value( preload, value, LV_ANIM_ON );
+    // lv_label_set_text( preload_label, msg );
+    
+    // for( int bl = 0 ; bl < 500 ; bl++ ) {
+    //     lv_timer_handler();
+    //     delay(1);
+    // }
+}
+
+void splash_screen_stage_finish( void ) {
+    // for( int bl = display_get_display_brig() ; bl >= 0 ; bl-- ) {
+    //     tftt.setBrightness( bl );
+    //     delay(5);
+    // }
+    // lv_obj_del(ui_bootScreen);
+    // lv_timer_handler();
 }
 
 void notification_panel(lv_obj_t *parent){

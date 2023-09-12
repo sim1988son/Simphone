@@ -2,7 +2,7 @@
 #include "callback.h"
 #include "json_psram_allocator.h"
 #include "alloc.h"
-#include "main.h"
+#include "config.h"
 #include "hardware/touchset.h"
 #include "hardware/powerset.h"
 #include "hardware/wifiset.h"

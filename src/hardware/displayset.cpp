@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <lgfx.h>
-#include "main.h"
+#include "config.h"
 #include "hardware/powerset.h"
 #include "hardware/sdset.h"
 #include "hardware/displayset.h"
