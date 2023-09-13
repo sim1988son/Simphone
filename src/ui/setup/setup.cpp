@@ -94,13 +94,13 @@ static void event_setup_open(lv_event_t *e){
     }
 }
 
-lv_obj_t *create_header(lv_obj_t *parent, const char *text, int yPos)
+lv_obj_t *create_panel()
 {
-    lv_obj_t * panel = lv_obj_create(parent);
+    lv_obj_t * panel = lv_obj_create(lv_scr_act());
     lv_obj_set_width(panel, 320);
-    lv_obj_set_height(panel, 450);
+    lv_obj_set_height(panel, 480);
     lv_obj_set_x(panel, 0);
-    lv_obj_set_y(panel, yPos);
+    lv_obj_set_y(panel, 0);
     lv_obj_set_align(panel, LV_ALIGN_TOP_MID);
     lv_obj_set_scrollbar_mode(panel, LV_SCROLLBAR_MODE_ACTIVE);
     lv_obj_set_style_radius(panel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -110,14 +110,19 @@ lv_obj_t *create_header(lv_obj_t *parent, const char *text, int yPos)
     lv_obj_set_style_pad_right(panel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(panel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(panel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    return panel;
+}
 
-    lv_obj_t * header = lv_obj_create(panel);
+lv_obj_t *create_header(lv_obj_t *parent, const char *text)
+{
+    lv_obj_t * header = lv_obj_create(parent);
     lv_obj_set_width(header, 320);
-    lv_obj_set_height(header, 50);
+    lv_obj_set_height(header, 80);
     lv_obj_set_align(header, LV_ALIGN_TOP_MID);
     lv_obj_clear_flag(header, LV_OBJ_FLAG_SCROLLABLE); /// Flags
     lv_obj_set_style_radius(header, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(header, 122, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(header, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(header, 25, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(header, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t * label = lv_label_create(header);
@@ -126,9 +131,9 @@ lv_obj_t *create_header(lv_obj_t *parent, const char *text, int yPos)
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
     lv_obj_set_align(label, LV_ALIGN_BOTTOM_MID);
-    lv_label_set_text(label, text);
+    lv_label_set_text(label, "Settings");
     lv_obj_set_style_text_font(label, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
-    return panel;
+    return header;
 }
 
 lv_obj_t *create_btn_header(lv_obj_t *parent, const char *text, uint16_t xPos, uint16_t yPos, uint16_t width, uint16_t height, lv_event_cb_t callback, lv_obj_t *data)
@@ -196,30 +201,31 @@ lv_obj_t * ui_app_settingsScreen(){
     return (ui_settingsScreen);
 }
 
-void openSettings(void){
-    // ui_startScreen
 
-    ui_settingsScreen = create_header(ui_app_startScreen(), "Settings", 30);
-    ui_setbtn = create_btn_header(ui_settingsScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_settingsScreen);
+
+void ui_settingsScreen_init(void){
+
+    ui_settingsScreen = create_panel();
+    // ui_setbtn = create_btn_header(ui_settingsScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_settingsScreen);create_header(NULL, "Settings", 30);
 
 
     list1 = lv_list_create(ui_settingsScreen);
-    lv_obj_set_size(list1, 320, 390);
+    lv_obj_set_size(list1, 320, 480);
     lv_obj_set_x(list1, 0);
-    lv_obj_set_y(list1, 50);
+    lv_obj_set_y(list1, 0);
     lv_obj_set_align(list1, LV_ALIGN_TOP_MID);
 
-    lv_obj_set_style_pad_top(list1, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_pad_top(list1, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(list1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(list1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(list1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_scrollbar_mode(list1, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_style_pad_top(list1, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(list1, 80, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(list1, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     /*Add apps to the list*/
     lv_list_add_text(list1, "System");
-    add_item(list1, "Display", LV_SYMBOL_IMAGE, event_setup_open);
+    add_item(list1, "Display", LV_SYMBOL_IMAGE, &event_setup_open);
     add_item(list1, "Battery", LV_SYMBOL_BATTERY_EMPTY, event_setup_open);
     add_item(list1, "Storage", LV_SYMBOL_SD_CARD, event_setup_open);
     add_item(list1, "About", LV_SYMBOL_HOME, event_setup_open);
@@ -234,10 +240,6 @@ void openSettings(void){
     add_item(list1, "Colors", LV_SYMBOL_SETTINGS, event_setup_open);
     add_item(list1, "Sound", LV_SYMBOL_VOLUME_MAX, event_setup_open);
     add_item(list1, "Lock screen", LV_SYMBOL_IMAGE, event_setup_open);
-    
-    // lv_list_add_text(list1, "Apps Setup");
-    // add_item(list1, "Weathers", LV_SYMBOL_SETTINGS, event_launch);
-    // add_item(list1, "Alarms", LV_SYMBOL_SETTINGS, event_launch);
 
     lv_list_add_text(list1, "Time & language");
     add_item(list1, "Date & time", LV_SYMBOL_BELL, event_setup_open);
@@ -246,6 +248,7 @@ void openSettings(void){
     lv_list_add_text(list1, "Update");
     add_item(list1, "Update", LV_SYMBOL_UPLOAD, event_setup_open);
 
+    lv_obj_t * header = create_header(ui_settingsScreen, "Settings");
     
     // //notification_panel(ui_settingsScreen);
     // status_bar(ui_settingsScreen);
