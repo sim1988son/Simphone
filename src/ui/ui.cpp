@@ -720,12 +720,13 @@ bool statusbar_wifictl_event_cb( EventBits_t event, void *arg ) {
                                     statusBar_show_icon( ui_wifiIcon );
                                     break;
     }
-    statusbar_refresh();
+    // statusbar_refresh();
     return( true );
 }
 
 void statusbar_refresh( void ) {
     for ( int i = 0 ; i < STATUSBAR_NUM ; i++ ) {
+        if(statusIcon[ui_wifiIcon].icon && wifi_status()) lv_obj_set_style_text_color(statusIcon[ui_wifiIcon].icon, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT, 0);
         if (i == 0){
             lv_obj_align_to(statusIcon[i].icon, ui_batterysymbol, LV_ALIGN_OUT_LEFT_MID, -7, 0);
         }else{

@@ -58,6 +58,7 @@ static void ui_colorobjcb_event(lv_event_t *e){
         // lv_obj_set_style_bg_color(ui_colorobjlighten1, lv_color_hex(colorsetup_config.cprimary), LV_PART_MAIN | LV_STATE_DEFAULT);
         // lv_obj_set_style_bg_color(ui_colorobjdarken1, lv_color_hex(colorsetup_config.cprimary), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_set_theme_color();
+        statusBar_show();
         // set_obj_color_bg();
         // start_app_bg_color();
         display_save_config();
@@ -113,44 +114,3 @@ void lv_set_theme_color(void){
                             LV_FONT_DEFAULT);
         lv_disp_set_theme(display, theme);
 }
-
-// void colorsetup_save_config( void ) {
-//     fs::File file = LittleFS.open( COLORSETUP_JSON_CONFIG_FILE, FILE_WRITE );
-
-//     if (!file) {
-//         log_e("Can't open file: %s!", COLORSETUP_JSON_CONFIG_FILE );
-//     }
-//     else {
-//         SpiRamJsonDocument doc( 10000 );
-
-//         doc["darkon"] = colorsetup_config.darkon;
-//         doc["cprimary"] = colorsetup_config.cprimary;
-//         if ( serializeJsonPretty( doc, file ) == 0) {
-//             log_e("Failed to write config file");
-//         }
-//         doc.clear();
-//     }
-//     file.close();
-// }
-
-// void colorsetup_load_config( void ) {
-//     fs::File file = LittleFS.open( COLORSETUP_JSON_CONFIG_FILE, FILE_READ );
-//     if (!file) {
-//         log_e("Can't open file: %s!", COLORSETUP_JSON_CONFIG_FILE );
-//     }
-//     else {
-//         int filesize = file.size();
-//         SpiRamJsonDocument doc( filesize * 2 );
-
-//         DeserializationError error = deserializeJson( doc, file );
-//         if ( error ) {
-//             log_e("update check deserializeJson() failed: %s", error.c_str() );
-//         }
-//         else {
-//             colorsetup_config.darkon = doc["darkon"] | true;
-//             colorsetup_config.cprimary = doc["cprimary"] | 0x0000dd;//lv_color_hex(LV_PALETTE_RED);
-//         }        
-//         doc.clear();
-//     }
-//     file.close();
-// }
