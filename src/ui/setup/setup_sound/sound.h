@@ -8,6 +8,6 @@
 #endif
 
 void openAppSound();
-
+void AppSound();
 
 #endif

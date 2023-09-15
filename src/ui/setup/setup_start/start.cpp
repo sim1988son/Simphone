@@ -49,11 +49,18 @@ static void ui_startSlider_event(lv_event_t *e){
 }
 
 void openAppStart(){
+    closeApp();
+    AppStart();
+    launchApp("Start", true);
+}
 
+void AppStart(){
+    lv_obj_t *canvas = app_canvas();
+    ui_StartScreen = create_obj(canvas);
     // start_load_config();
 
-    ui_StartScreen = create_header(ui_app_settingsScreen(), "Start");
-    ui_startbtn = create_btn_header(ui_StartScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_StartScreen);
+    // ui_StartScreen = create_header(ui_app_settingsScreen(), "Start");
+    // ui_startbtn = create_btn_header(ui_StartScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_StartScreen);
 
 
 

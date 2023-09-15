@@ -29,9 +29,16 @@ static void ui_bluetoothScreen_event(lv_event_t *e){
 }
 
 void openAppBluetooth(){
+    closeApp();
+    AppBluetooth();
+    launchApp("Bluetoth", true);
+}
 
-    ui_bluetoothScreen = create_header(ui_app_settingsScreen(), "Bluetoth");
-    ui_bluetoothbtn = create_btn_header(ui_bluetoothScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_bluetoothScreen);
+void AppBluetooth(){
+    lv_obj_t *canvas = app_canvas();
+    ui_bluetoothScreen = create_obj(canvas);
+    // ui_bluetoothScreen = create_header(ui_app_settingsScreen(), "Bluetoth");
+    // ui_bluetoothbtn = create_btn_header(ui_bluetoothScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_bluetoothScreen);
 
 
     ui_bllabel = create_label(ui_bluetoothScreen,0, "Bluetoth" , 20, 100, 20);

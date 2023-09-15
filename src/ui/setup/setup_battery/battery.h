@@ -15,7 +15,7 @@
 //     int32_t battery_brig = 66; 
 // } battery_config_t;
 
-
+void AppBattery();
 void openAppBattery();
 // void battery_save_config( void );
 // void battery_load_config( void );

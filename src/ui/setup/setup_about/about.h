@@ -8,7 +8,7 @@
 #endif
 
 
+void AppAbout();
 void openAppAbout();
-
 
 #endif

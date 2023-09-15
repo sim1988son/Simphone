@@ -9,6 +9,7 @@
 
 
 void openAppBluetooth();
+void AppBluetooth();
 
 
 #endif

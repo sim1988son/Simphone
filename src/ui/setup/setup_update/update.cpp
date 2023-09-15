@@ -22,9 +22,16 @@ static void ui_updateScreen_event(lv_event_t *e){
 }
 
 void openAppUpdate(){
+    closeApp();
+    AppUpdate();
+    launchApp("Update", true);
+}
 
-    ui_updateScreen = create_header(ui_app_settingsScreen(), "Update");
-    ui_updatebtn = create_btn_header(ui_updateScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_updateScreen);
+void AppUpdate(){
+    lv_obj_t *canvas = app_canvas();
+    ui_updateScreen = create_obj(canvas);
+    // ui_updateScreen = create_header(ui_app_settingsScreen(), "Update");
+    // ui_updatebtn = create_btn_header(ui_updateScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_updateScreen);
 
 
 }

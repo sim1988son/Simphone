@@ -65,9 +65,16 @@ static void ui_colorobjcb_event(lv_event_t *e){
 }
 
 void openAppColors(){
+    closeApp();
+    AppColors();
+    launchApp("Colors", true);
+}
 
-    ui_colorsScreen = create_header(ui_app_settingsScreen(), "Colors");
-    ui_colorsbtn = create_btn_header(ui_colorsScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_colorsScreen);
+void AppColors(){
+    lv_obj_t *canvas = app_canvas();
+    ui_colorsScreen = create_obj(canvas);
+    // ui_colorsScreen = create_header(ui_app_settingsScreen(), "Colors");
+    // ui_colorsbtn = create_btn_header(ui_colorsScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_colorsScreen);
 
 
     lv_color_t c;

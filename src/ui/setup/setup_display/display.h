@@ -11,6 +11,6 @@
 
 
 void openAppDisplay();
-
+void AppDisplay();
 
 #endif

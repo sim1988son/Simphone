@@ -168,31 +168,27 @@ static void event_navigate(lv_event_t *e)
     lv_obj_t *actScr = lv_disp_get_scr_act(display);
 
     if (code == LV_EVENT_CLICKED){
-        // printf("Navigate action: ");
         // lv_obj_add_flag(ui_systemKeyboard, LV_OBJ_FLAG_HIDDEN);
 
         if (obj == ui_backButton){
-            // printf("Back\n");
             // vibrate(100);
-            // if (chatScr)
-            // {
-            //     chatScr = false;
-            //     // openMessage();
-            // }
-            // else 
-            if (actScr == ui_startScreen){// || actScr == ui_lockScreen)
-                // openLock();
-                log_i("BUTTON BACK 1");
-            }else if (actScr != ui_startScreen){
+            if (actScr == ui_app_settingsScreenApps()){
+                openSettings();
+                log_i("BUTTON BACK 3");
+            }else if (actScr == ui_app_settingsScreen()){
                 openStart();
                 log_i("BUTTON BACK 2");
+            }else if (actScr == ui_startScreen){
+                // openSettings();
+                log_i("BUTTON BACK 0");
+            }else if (actScr != ui_startScreen){
+                openStart();
+                log_i("BUTTON BACK 1");
             }else{
                 // lv_obj_set_tile_id(ui_tileView, 0, 0, LV_ANIM_ON);
             }
         }
         if (obj == ui_startButton){
-    
-            // printf("Start\n");
             // vibrate(100);
             if (actScr != ui_startScreen){
                 openStart();
@@ -201,11 +197,6 @@ static void event_navigate(lv_event_t *e)
                 // lv_obj_set_tile_id(ui_tileView, 0, 0, LV_ANIM_ON);
                 log_i("BUTTON START 2");
             }
-
-            // if (chatScr)
-            // {
-            //     chatScr = false;
-            // }
         }
     }
 }
@@ -348,32 +339,6 @@ lv_obj_t * create_tile(lv_obj_t *parent, char *name, const void *src, int col, i
 }
 
 ///////////////////// DYNAMIC COMPONENTS ////////////////////
-void create_action_tile(lv_obj_t *parent, lv_obj_t *obj2, char *name, const void *src, bool checked, int col, int row, int size, int action, lv_event_cb_t callback){
-// void create_action_tile(lv_obj_t *parent, char *name, const void *src, bool checked, int col, int row, int size, int action, lv_event_cb_t callback){
-    lv_obj_t *label;
-    lv_obj_t *icon;
-    obj2 = lv_btn_create(parent);
-    lv_obj_set_style_radius(obj2, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_grid_cell(obj2, LV_GRID_ALIGN_STRETCH, col, size, LV_GRID_ALIGN_STRETCH, row, 1);
-    lv_obj_add_flag(obj2, LV_OBJ_FLAG_CHECKABLE | LV_OBJ_FLAG_SCROLL_ON_FOCUS);
-    lv_obj_add_event_cb(obj2, callback, LV_EVENT_VALUE_CHANGED , NULL);
-
-    if (!checked){
-        lv_obj_add_state(obj2, LV_STATE_CHECKED); /*Make the chekbox checked*/
-    }else{
-        lv_obj_clear_state(obj2, LV_STATE_CHECKED); /*MAke the checkbox unchecked*/
-    }
-    lv_obj_clear_flag(obj2, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_style_bg_opa(obj2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(obj2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_radius(obj2, 10, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_opa(obj2, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-
-    icon = lv_label_create(obj2);
-    lv_label_set_text(icon, statusIcon[action].symbol);
-    lv_obj_set_align(icon, LV_ALIGN_CENTER);
-    lv_obj_set_style_text_font(icon, &lv_font_montserrat_28, LV_PART_MAIN | LV_STATE_DEFAULT);
-}
 
 lv_obj_t *create_label(lv_obj_t *parent, uint16_t Pos, const char *text, uint16_t xPos, uint16_t yPos, uint8_t font)
 {
@@ -803,8 +768,9 @@ void ui_init(void){
                         LV_FONT_DEFAULT);
     lv_disp_set_theme(display, theme);
 
-    ui_settingsScreen_init();
     ui_startScreen_init();
+    ui_settingsScreen_init();
+    ui_settingsScreenApps_init();
     lv_disp_load_scr(ui_startScreen);
 }
 
@@ -817,6 +783,13 @@ void openSettings(void){
     lv_obj_set_parent(ui_notificationPanel, ui_app_settingsScreen());
     lv_obj_set_parent(ui_statusBar, ui_app_settingsScreen());
     lv_disp_load_scr(ui_app_settingsScreen());
+}
+
+void openlaunch(void){
+    lv_obj_set_parent(ui_Panel2, ui_app_settingsScreenApps());
+    lv_obj_set_parent(ui_notificationPanel, ui_app_settingsScreenApps());
+    lv_obj_set_parent(ui_statusBar, ui_app_settingsScreenApps());
+    // lv_disp_load_scr(ui_app_settingsScreenApps());
 }
 
 void openStart(){
@@ -970,22 +943,6 @@ void splash_screen_stage_boot(){
     lv_label_set_text(ui_bootlabel, LV_SYMBOL_POWER);
     lv_obj_set_style_text_font(ui_bootlabel, &lv_font_montserrat_48, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // preload = lv_bar_create(ui_bootScreen);
-    // lv_obj_set_size(preload, 240, 20);
-    // lv_bar_set_value(preload, 0, LV_ANIM_ON);
-    // lv_obj_align(preload, LV_ALIGN_BOTTOM_MID, 0, -50);
-    // lv_obj_set_style_bg_opa(preload, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_border_color(preload, lv_color_black(), LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_border_width(preload, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_pad_all(preload, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_bg_color(preload, lv_color_black(), LV_PART_INDICATOR);
-    // lv_obj_set_style_anim_time( preload, 2500, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-
-    // preload_label = lv_label_create(ui_bootScreen);
-    // lv_label_set_text( preload_label, "booting" );
-    // lv_obj_align(preload_label, LV_ALIGN_BOTTOM_MID, 0, -30);
-
     lv_timer_handler();
 
     for( int bl = 0 ; bl < display_get_display_brig() ; bl++ ) {
@@ -1024,6 +981,32 @@ void splash_screen_stage_finish( void ) {
     // lv_timer_handler();
 }
 
+// panel notyfication
+void create_action_tile(lv_obj_t *parent, lv_obj_t *obj2, char *name, const void *src, bool checked, int col, int row, int size, int action, lv_event_cb_t callback){
+    lv_obj_t *label;
+    lv_obj_t *icon;
+    obj2 = lv_btn_create(parent);
+    lv_obj_set_style_radius(obj2, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_grid_cell(obj2, LV_GRID_ALIGN_STRETCH, col, size, LV_GRID_ALIGN_STRETCH, row, 1);
+    lv_obj_add_flag(obj2, LV_OBJ_FLAG_CHECKABLE | LV_OBJ_FLAG_SCROLL_ON_FOCUS);
+    lv_obj_add_event_cb(obj2, callback, LV_EVENT_VALUE_CHANGED , NULL);
+    if (!checked){
+        lv_obj_add_state(obj2, LV_STATE_CHECKED); /*Make the chekbox checked*/
+    }else{
+        lv_obj_clear_state(obj2, LV_STATE_CHECKED); /*MAke the checkbox unchecked*/
+    }
+    lv_obj_clear_flag(obj2, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_opa(obj2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(obj2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(obj2, 10, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_opa(obj2, 255, LV_PART_MAIN | LV_STATE_CHECKED);
+
+    icon = lv_label_create(obj2);
+    lv_label_set_text(icon, statusIcon[action].symbol);
+    lv_obj_set_align(icon, LV_ALIGN_CENTER);
+    lv_obj_set_style_text_font(icon, &lv_font_montserrat_28, LV_PART_MAIN | LV_STATE_DEFAULT);
+}
+
 void notification_panel(lv_obj_t *parent){
 
     // ui_notificationPanel
@@ -1037,13 +1020,10 @@ void notification_panel(lv_obj_t *parent){
     lv_obj_clear_flag(ui_notificationPanel, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_scrollbar_mode(ui_notificationPanel, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_notificationPanel, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_notificationPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_notificationPanel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_all(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_pad_right(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_pad_top(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_pad_bottom(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_opa(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_add_event_cb(ui_notificationPanel, ui_event_notificationPanel, LV_EVENT_ALL, NULL);
 
@@ -1116,8 +1096,6 @@ void notification_panel(lv_obj_t *parent){
     lv_obj_set_align(ui_dragPanel, LV_ALIGN_BOTTOM_MID);
     lv_obj_clear_flag(ui_dragPanel, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_scrollbar_mode(ui_dragPanel, LV_SCROLLBAR_MODE_OFF);
-
-    // lv_obj_add_event_cb(ui_dragPanel, ui_event_dragPanel, LV_EVENT_ALL, NULL);
     lv_obj_set_style_radius(ui_dragPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_dragPanel, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dragPanel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);

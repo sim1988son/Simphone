@@ -14,6 +14,7 @@
 // } lock_config_t;
 
 void openAppLockScreen();
+void AppLockScreen();
 // void lock_save_config(void);
 // void lock_load_config(void);
 // void lock_obj_color_bg(void);

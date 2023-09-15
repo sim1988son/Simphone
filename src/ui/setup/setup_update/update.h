@@ -8,7 +8,7 @@
 #endif
 
 void openAppUpdate();
-
+void AppUpdate();
     
 #endif
 

@@ -22,9 +22,16 @@ static void ui_soundScreen_event(lv_event_t *e){
 }
 
 void openAppSound(){
+    closeApp();
+    AppSound();
+    launchApp("Sound", true);
+}
 
-    ui_soundScreen = create_header(ui_app_settingsScreen(), "Sound");
-    ui_soundbtn = create_btn_header(ui_soundScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_soundScreen);
+void AppSound(){
+    lv_obj_t *canvas = app_canvas();
+    ui_soundScreen = create_obj(canvas);
+    // ui_soundScreen = create_header(ui_app_settingsScreen(), "Sound");
+    // ui_soundbtn = create_btn_header(ui_soundScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_soundScreen);
 
 
 }

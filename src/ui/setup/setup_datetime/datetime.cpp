@@ -132,13 +132,21 @@ static void ui_dateTimeScreen_event(lv_event_t *e){
 }
 
 void openAppDateTime(){
+    closeApp();
+    AppDateTime();
+    launchApp("Date & time", true);
+}
+
+void AppDateTime(){
 
     datetime_load_config();
 
     lv_obj_t * ui_dateTimelabel;
-
-    ui_dateTimeScreen = create_header(ui_app_settingsScreen(), "Date & time");
-    ui_dateTimebtn = create_btn_header(ui_dateTimeScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_dateTimeScreen);
+    
+    lv_obj_t *canvas = app_canvas();
+    ui_dateTimeScreen = create_obj(canvas);
+    // ui_dateTimeScreen = create_header(ui_app_settingsScreen(), "Date & time");
+    // ui_dateTimebtn = create_btn_header(ui_dateTimeScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_dateTimeScreen);
 
 
     ui_dateTimelabel = create_label(ui_dateTimeScreen,0, "Automatycznie", 20, 100, 20);

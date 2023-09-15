@@ -34,7 +34,7 @@ void ui_init(void);
 void ui_startScreen_init(void);
 void openStart(void);
 void openSettings(void);
-// void ui_bootScreen_init(void);
+void openlaunch(void);
 void splash_screen_stage_boot(void);
 
     void splash_screen_stage_update( const char* msg, int value );

@@ -20,9 +20,16 @@ lv_obj_t * ui_displaswitch;
 
 
 void openAppBattery(){
+    closeApp();
+    AppBattery();
+    launchApp("Battery", true);
+}
 
-    ui_batteryScreen = create_header(ui_app_settingsScreen(), "Battery");
-    ui_batterybtn = create_btn_header(ui_batteryScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_batteryScreen);
+void AppBattery(){
+    lv_obj_t *canvas = app_canvas();
+    ui_batteryScreen = create_obj(canvas);
+    // ui_batteryScreen = create_header(ui_app_settingsScreen(), "Battery");
+    // ui_batterybtn = create_btn_header(ui_batteryScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_batteryScreen);
 
     ui_batterylabel = create_label(ui_batteryScreen,0, "28%", 20, 100, 20);
 

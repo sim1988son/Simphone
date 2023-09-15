@@ -33,9 +33,9 @@ wifiset_config_t wifiset_config;
 
 
 bool wifictl_send_event_cb( EventBits_t event, void *arg );
-void wifictl_set_event( EventBits_t bits );
-bool wifictl_get_event( EventBits_t bits );
-void wifictl_clear_event( EventBits_t bits );
+// void wifictl_set_event( EventBits_t bits );
+// bool wifictl_get_event( EventBits_t bits );
+// void wifictl_clear_event( EventBits_t bits );
 // void wifictl_save_network( void );
 // void wifictl_load_network( void );
 void wifiset_save_config( void );

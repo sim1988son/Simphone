@@ -10,5 +10,6 @@
 
 
 void openAppStorage();
+void AppStorage();
 
 #endif

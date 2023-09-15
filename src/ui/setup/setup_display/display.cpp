@@ -40,12 +40,19 @@ static void ui_displaySlider_event(lv_event_t *e){
         
     }
 }
- 
-void openAppDisplay(){
 
-    ui_displayScreen = create_header(ui_app_settingsScreen(), "Display");
+void openAppDisplay(){
+    closeApp();
+    AppDisplay();
+    launchApp("Display", true);
+}
+
+void AppDisplay(){
+    lv_obj_t *canvas = app_canvas();
+    ui_displayScreen = create_obj(canvas);
+    // ui_displayScreen = create_header(ui_app_settingsScreen(), "Display");
     lv_obj_add_event_cb(ui_displayScreen, ui_displayScreen_event, LV_EVENT_DELETE, NULL);
-    ui_displaybtn = create_btn_header(ui_displayScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_displayScreen);
+    // ui_displaybtn = create_btn_header(ui_displayScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_displayScreen);
 
     ui_displaylabel = create_label(ui_displayScreen,0, "Adjust brightness", 20, 100, 20);
     ui_displayslider = create_slider(ui_displayScreen, 20, 150, 280, 10, ui_displaySlider_event);

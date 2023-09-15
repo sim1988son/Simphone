@@ -17,6 +17,7 @@ typedef struct {
 
 
 void openAppDateTime();
+void AppDateTime();
 void updateLocalTime();
 void configlockaltime();
 String updatelockTime();

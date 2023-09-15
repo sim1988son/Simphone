@@ -9,6 +9,7 @@
 
 
 void openAppwifi();
+void Appwifi();
 
 void add_wifi_name_list_btn(lv_obj_t *parent, const char *name, const char *src);
 

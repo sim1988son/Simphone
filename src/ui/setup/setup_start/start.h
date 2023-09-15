@@ -15,6 +15,7 @@
 // } start_config_t;
 
 void openAppStart();
+void AppStart();
 // void start_save_config(void);
 // void start_load_config(void);
 void set_obj_color_bg(void);

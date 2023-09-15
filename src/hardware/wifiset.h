@@ -58,6 +58,10 @@
     void wifictl_on(void);
     void wifictl_off(void);
 
+    void wifictl_set_event( EventBits_t bits );
+    bool wifictl_get_event( EventBits_t bits );
+    void wifictl_clear_event( EventBits_t bits );
+
     void wifictl_standby( void );
 
     void wifictl_wakeup( void );

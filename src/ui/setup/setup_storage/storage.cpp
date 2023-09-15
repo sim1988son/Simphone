@@ -39,9 +39,16 @@ static void ui_storageScreen_event(lv_event_t *e){
 }
 
 void openAppStorage(){
+    closeApp();
+    AppStorage();
+    launchApp("Storage", true);
+}
 
-    ui_storageScreen = create_header(ui_app_settingsScreen(), "Storage");
-    ui_storagebtn = create_btn_header(ui_storageScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_storageScreen);
+void AppStorage(){
+    lv_obj_t *canvas = app_canvas();
+    ui_storageScreen = create_obj(canvas);
+    // ui_storageScreen = create_header(ui_app_settingsScreen(), "Storage");
+    // ui_storagebtn = create_btn_header(ui_storageScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_storageScreen);
 
     
     lv_obj_t * ui_storagelabel;

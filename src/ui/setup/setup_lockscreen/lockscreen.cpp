@@ -61,10 +61,18 @@ static void ui_lockslider_event(lv_event_t * e)
 }
 
 void openAppLockScreen(){
+    closeApp();
+    AppLockScreen();
+    launchApp("Lock screen", true);
+}
 
-    ui_lockScreen = create_header(ui_app_settingsScreen(), "Lock screen");
+void AppLockScreen(){
+    lv_obj_t *canvas = app_canvas();
+    ui_lockScreen = create_obj(canvas);
+
+    // ui_lockScreen = create_header(ui_app_settingsScreen(), "Lock screen");
     lv_obj_add_event_cb(ui_lockScreen, ui_lockScreen_event, LV_EVENT_DELETE, NULL);
-    ui_lockbtn = create_btn_header(ui_lockScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_lockScreen);
+    // ui_lockbtn = create_btn_header(ui_lockScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_lockScreen);
 
     ui_lockbgobj = lv_obj_create(ui_lockScreen);
     lv_obj_set_width(ui_lockbgobj, 320/3);  /// 1

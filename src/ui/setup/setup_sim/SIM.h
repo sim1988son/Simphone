@@ -9,6 +9,6 @@
 
 
 void openAppSIM();
-
+void AppSIM();
 
 #endif

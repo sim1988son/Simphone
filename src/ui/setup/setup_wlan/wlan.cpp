@@ -157,9 +157,16 @@ static void event_text_input(lv_event_t *e) {
 }
 
 void openAppwifi(){
+    closeApp();
+    Appwifi();
+    launchApp("WiFi", true);
+}
 
-    ui_wifiScreen = create_header(ui_app_settingsScreen(), "WiFi");
-    ui_wifibtn = create_btn_header(ui_wifiScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_wifiScreen);
+void Appwifi(){
+    lv_obj_t *canvas = app_canvas();
+    ui_wifiScreen = create_obj(canvas);
+    // ui_wifiScreen = create_header(ui_app_settingsScreen(), "WiFi");
+    // ui_wifibtn = create_btn_header(ui_wifiScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_wifiScreen);
 
     // wifictl_set_enable_on_standby(false);
 
@@ -185,7 +192,7 @@ void openAppwifi(){
     lv_obj_set_align(ui_wifispinner,LV_ALIGN_TOP_RIGHT);
 
     listwifi = lv_list_create(ui_wifiScreen);
-    lv_obj_set_size(listwifi, 320, 260);
+    lv_obj_set_size(listwifi, 320, LV_SIZE_CONTENT);
     lv_obj_set_x(listwifi, 0);
     lv_obj_set_y(listwifi, 220);
     lv_obj_set_align(listwifi, LV_ALIGN_TOP_MID);
@@ -249,10 +256,12 @@ void openAppwifi(){
     }
     wifictl_register_cb( WIFICTL_AUTOON, wifi_setup_autoon_event_cb, "wifi setup");
     wifictl_register_cb( WIFICTL_ON | WIFICTL_OFF | WIFICTL_SCAN , wifi_setup_wifictl_event_cb, "wifi network scan" );
-    
+    wifictl_set_event( WIFICTL_SCAN );
+    // WiFi.scanComplete();
 }
 
 bool wifi_setup_wifictl_event_cb( EventBits_t event, void *arg ) {
+    log_i("WIFION SET ??????");
     switch( event ) {
         case    WIFICTL_ON:
             log_i("WIFION SET ON");
@@ -271,9 +280,9 @@ bool wifi_setup_wifictl_event_cb( EventBits_t event, void *arg ) {
             int len = WiFi.scanComplete();
             for( int i = 0 ; i < len ; i++ ) {
                 if ( wifiset_is_known( WiFi.SSID(i).c_str() ) ) {
-                add_wifi_name_list_btn(listwifi, WiFi.SSID(i).c_str(), LV_SYMBOL_EYE_OPEN);
+                    add_wifi_name_list_btn(listwifi, WiFi.SSID(i).c_str(), LV_SYMBOL_EYE_OPEN);
                 } else {
-                add_wifi_name_list_btn(listwifi, WiFi.SSID(i).c_str(), LV_SYMBOL_EYE_CLOSE);
+                    add_wifi_name_list_btn(listwifi, WiFi.SSID(i).c_str(), LV_SYMBOL_EYE_CLOSE);
                 }
             } 
             lv_obj_add_flag(ui_wifispinner, LV_OBJ_FLAG_HIDDEN);          
@@ -297,26 +306,26 @@ bool wifi_setup_autoon_event_cb( EventBits_t event, void *arg ) {
 }
 
 void lv_wifi_on(void){
-    log_i("WIFION SET TRUE");
-    uint32_t parm_id = 1;
-    lv_event_send(ui_wifiswitch_onoff, LV_EVENT_VALUE_CHANGED, &parm_id);
+    // log_i("WIFION SET TRUE");
+    lv_obj_add_state(ui_wifiswitch_onoff, LV_STATE_CHECKED);
+    // uint32_t parm_id = 1;
+    // lv_event_send(ui_wifiswitch_onoff, LV_EVENT_VALUE_CHANGED, &parm_id);
 }
 
 void lv_wifi_off(void){
-    log_i("WIFION RES TRUE");
-    uint32_t parm_id = 0;
-    lv_event_send(ui_wifiswitch_onoff, LV_EVENT_VALUE_CHANGED, &parm_id);
+    // log_i("WIFION RES TRUE");
+    lv_obj_clear_state(ui_wifiswitch_onoff, LV_STATE_CHECKED);
+    // uint32_t parm_id = 0;
+    // lv_event_send(ui_wifiswitch_onoff, LV_EVENT_VALUE_CHANGED, &parm_id);
 }
 
 void lv_wifi_auto_on(void){
-    log_i("AUTOON SET TRUE");
-    lv_label_set_text(ui_wifilabel_autoon, "WiFI auto ON o");
+    lv_obj_add_state(ui_wifiswitch_onoff, LV_STATE_CHECKED);
     lv_obj_add_state(ui_wifiswitch_autoon, LV_STATE_CHECKED);
 }
 
 void lv_wifi_auto_off(void){
-    log_i("AUTOON RES TRUE");
-    lv_label_set_text(ui_wifilabel_autoon, "WiFI auto Of o");
+    lv_obj_clear_state(ui_wifiswitch_onoff, LV_STATE_CHECKED);
     lv_obj_clear_state(ui_wifiswitch_autoon, LV_STATE_CHECKED);
 }
 

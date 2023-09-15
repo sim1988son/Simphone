@@ -8,6 +8,6 @@
 #endif
 
 void openAppLanguage();
-
+void AppLanguage();
 
 #endif
