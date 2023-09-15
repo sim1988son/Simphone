@@ -96,7 +96,7 @@ static void event_setup_open(lv_event_t *e){
 
 lv_obj_t *create_panel()
 {
-    lv_obj_t * panel = lv_obj_create(lv_scr_act());
+    lv_obj_t * panel = lv_obj_create(NULL);
     lv_obj_set_width(panel, 320);
     lv_obj_set_height(panel, 480);
     lv_obj_set_x(panel, 0);
