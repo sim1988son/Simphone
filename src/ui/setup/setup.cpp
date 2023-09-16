@@ -2,6 +2,7 @@
 #include <string.h>
 #include "config.h"
 #include "ui/ui.h"
+#include "utils/lang.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_about/about.h"
 #include "ui/setup/setup_battery/battery.h"
@@ -135,7 +136,7 @@ lv_obj_t *create_header(lv_obj_t *parent, const char *text)
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
     lv_obj_set_align(label, LV_ALIGN_BOTTOM_MID);
-    lv_label_set_text(label, "Settings");
+    lv_label_set_text(label, "");
     lv_obj_set_style_text_font(label, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
     return header;
 }
@@ -248,7 +249,7 @@ void ui_settingsScreen_init(void){
     lv_list_add_text(list1, "Update");
     add_item(list1, "Update", LV_SYMBOL_UPLOAD, event_setup_open);
 
-    lv_obj_t * header = create_header(ui_settingsScreen, "Settings");
+    lv_obj_t * header = create_header(ui_settingsScreen, str_txt(STR_SETTINGS).c_str());
 
 }
 

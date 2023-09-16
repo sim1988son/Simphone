@@ -1,8 +1,8 @@
-#define TWATCH_USE_PSRAM_ALLOC_LVGL
+// #define TWATCH_USE_PSRAM_ALLOC_LVGL
 
 #include <Arduino.h>
 #include "config.h"
-
+#include "utils/lang.h"
 #include <lvgl.h>
 #include "ui/ui.h"
 
@@ -110,6 +110,8 @@ void setup() {
     lv_timer_handler();
   }
 
+  // update_string_lang(UI_LANG_DE);
+
   ui_init();
   openStart();
 
@@ -119,9 +121,8 @@ void setup() {
   }
 
   if(wifictl_get_autoon()) wifictl_on();
-// const char* ssid = "Mi Note 10";
-// const char* password = "da6a527f264c";
-display_set_brightness((int)display_get_display_brig());
+
+  display_set_brightness((int)display_get_display_brig());
 
 }
 

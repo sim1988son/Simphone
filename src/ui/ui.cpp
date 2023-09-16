@@ -606,21 +606,16 @@ void status_bar(lv_obj_t *parent){
     // ui_batteryBar
 
     ui_batterysymbol = lv_bar_create(ui_statusBar);
-    lv_obj_set_size(ui_batterysymbol, 34, 16);
+    lv_obj_set_size(ui_batterysymbol, 30, 16);
     lv_bar_set_value(ui_batterysymbol, 70, LV_ANIM_OFF);
-    lv_obj_align(ui_batterysymbol, LV_ALIGN_TOP_RIGHT, -10, 7);
-    lv_obj_set_style_bg_opa(ui_batterysymbol, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_batterysymbol, lv_color_white(), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(ui_batterysymbol, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_all(ui_batterysymbol, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_batterysymbol, lv_palette_main(LV_PALETTE_GREEN), LV_PART_INDICATOR);
-    lv_obj_set_style_radius(ui_batterysymbol, 3, LV_PART_INDICATOR);
-
-    // ui_batterysymbolcharge = lv_label_create( ui_statusBar);
-    // lv_label_set_text( ui_batterysymbolcharge, LV_SYMBOL_CHARGE);
-    // lv_obj_align(ui_batterysymbolcharge, LV_ALIGN_TOP_RIGHT, -17, 7);
-    // lv_obj_set_style_border_color(ui_batterysymbolcharge, lv_theme_get_color_primary(NULL), LV_PART_MAIN | LV_STATE_DEFAULT);
-    
+    lv_obj_align(ui_batterysymbol, LV_ALIGN_TOP_RIGHT, -10, 5);
+    lv_obj_set_style_bg_opa(ui_batterysymbol, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_batterysymbol, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_all(ui_batterysymbol, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_batterysymbol, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT, LV_PART_INDICATOR);//lv_palette_main(LV_PALETTE_GREEN), LV_PART_INDICATOR);
+    lv_obj_set_style_bg_color(ui_batterysymbol, lv_palette_main(LV_PALETTE_GREY), LV_PART_MAIN | LV_STATE_DEFAULT);//lv_palette_main(LV_PALETTE_GREEN), LV_PART_INDICATOR);
+    lv_obj_set_style_radius(ui_batterysymbol, 0, LV_PART_INDICATOR);
+    lv_obj_set_style_radius(ui_batterysymbol, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     for( int i = 0 ; i < STATUSBAR_NUM ; i++ ) {
         statusIcon[i].icon = lv_label_create( ui_statusBar);
@@ -649,7 +644,7 @@ void status_bar(lv_obj_t *parent){
     sdset_register_cb( SDCARD_ON , statusbar_sdset_event_cb, "statusbar sdset" );
     wifictl_register_cb( WIFICTL_CONNECT | WIFICTL_DISCONNECT | WIFICTL_OFF | WIFICTL_ON | WIFICTL_SCAN | WIFICTL_WPS_SUCCESS | WIFICTL_WPS_FAILED | WIFICTL_CONNECT_IP, statusbar_wifictl_event_cb, "statusbar wifi" );
     
-    ui_statusBar_timer = lv_timer_create(ui_statusBar_update_timer, 500,  NULL);
+    ui_statusBar_timer = lv_timer_create(ui_statusBar_update_timer, 250,  NULL);
 
     statusBar_show_icon(ui_chargeIcon);
 
@@ -720,13 +715,13 @@ bool statusbar_wifictl_event_cb( EventBits_t event, void *arg ) {
                                     statusBar_show_icon( ui_wifiIcon );
                                     break;
     }
-    // statusbar_refresh();
+    statusbar_refresh();
     return( true );
 }
 
-void statusbar_refresh( void ) {
+void statusbar_refresh(void){
     for ( int i = 0 ; i < STATUSBAR_NUM ; i++ ) {
-        if(statusIcon[ui_wifiIcon].icon && wifi_status()) lv_obj_set_style_text_color(statusIcon[ui_wifiIcon].icon, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT, 0);
+        // if(statusIcon[ui_wifiIcon].icon && wifi_status()) lv_obj_set_style_text_color(statusIcon[ui_wifiIcon].icon, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT, 0);
         if (i == 0){
             lv_obj_align_to(statusIcon[i].icon, ui_batterysymbol, LV_ALIGN_OUT_LEFT_MID, -7, 0);
         }else{
@@ -737,6 +732,11 @@ void statusbar_refresh( void ) {
             }
         }
     }
+}
+
+void statusbar_refresh_plus(void){
+    statusbar_style_icon( ui_wifiIcon, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT );
+    lv_obj_set_style_bg_color(ui_batterysymbol, display_get_display_darkon() ? DARK_COLOR_TEXT : LIGHT_COLOR_TEXT, LV_PART_INDICATOR);
 }
 
 void statusBar_hide_icon(int i){
@@ -1021,7 +1021,7 @@ void notification_panel(lv_obj_t *parent){
     lv_obj_clear_flag(ui_notificationPanel, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_scrollbar_mode(ui_notificationPanel, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_notificationPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_bg_color(ui_notificationPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_notificationPanel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_all(ui_notificationPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1045,7 +1045,7 @@ void notification_panel(lv_obj_t *parent){
     lv_obj_set_scrollbar_mode(ui_actionPanel, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_layout(ui_actionPanel, LV_LAYOUT_GRID);
     lv_obj_set_style_radius(ui_actionPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_actionPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_bg_color(ui_actionPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_actionPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_actionPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_column(ui_actionPanel, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1129,7 +1129,7 @@ void navigation(lv_obj_t *parent)
     lv_obj_clear_flag(ui_Panel2, LV_OBJ_FLAG_SCROLLABLE);
 
     lv_obj_set_style_radius(ui_Panel2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_Panel2, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_bg_color(ui_Panel2, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Panel2, 25, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Panel2, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_side(ui_Panel2, LV_BORDER_SIDE_TOP, LV_PART_MAIN | LV_STATE_DEFAULT);

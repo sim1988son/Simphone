@@ -44,4 +44,10 @@ static lv_disp_drv_t disp_drv;
 
 void init_WT32( void );
 
+// typedef enum {
+//         STR_SETTINGS = 0,
+//         STR_WIFI,
+
+//     } txt_string;
+
 #endif

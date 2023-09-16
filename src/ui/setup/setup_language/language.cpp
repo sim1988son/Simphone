@@ -39,5 +39,5 @@ void AppLanguage(){
     lv_obj_set_width(ui_languageddd, 120); //100
     lv_obj_set_style_border_color(ui_languageddd, lv_palette_main(LV_PALETTE_GREY), LV_PART_MAIN | LV_STATE_DEFAULT);
     // lv_dropdown_set_selected(ui_languageddd, display_get_display_bg());
-
+    
 }

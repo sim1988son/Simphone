@@ -45,6 +45,7 @@ void statusBar_hide_icon(int i);
 void statusBar_show_icon(int i);
 void statusbar_style_icon( int i, lv_color_t value) ;
 void statusbar_refresh(void);
+void statusbar_refresh_plus(void);
 lv_obj_t * ui_app_startScreen();
 void ui_statusBar_update_timer( lv_timer_t  * timer );
 

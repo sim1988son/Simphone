@@ -58,7 +58,8 @@ static void ui_colorobjcb_event(lv_event_t *e){
         // lv_obj_set_style_bg_color(ui_colorobjlighten1, lv_color_hex(colorsetup_config.cprimary), LV_PART_MAIN | LV_STATE_DEFAULT);
         // lv_obj_set_style_bg_color(ui_colorobjdarken1, lv_color_hex(colorsetup_config.cprimary), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_set_theme_color();
-        statusBar_show();
+        // statusBar_show();
+        statusbar_refresh_plus();
         // set_obj_color_bg();
         // start_app_bg_color();
         display_save_config();
