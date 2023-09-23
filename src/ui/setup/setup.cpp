@@ -136,7 +136,7 @@ lv_obj_t *create_header(lv_obj_t *parent, const char *text)
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
     lv_obj_set_align(label, LV_ALIGN_BOTTOM_MID);
-    lv_label_set_text(label, "");
+    lv_label_set_text(label, text);
     lv_obj_set_style_text_font(label, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
     return header;
 }
@@ -162,7 +162,7 @@ lv_obj_t *create_btn_header(lv_obj_t *parent, const char *text, uint16_t xPos, u
     return button;
 }
 
-void add_item(lv_obj_t *parent, char *name, char *src, lv_event_cb_t callback){
+void add_item(lv_obj_t *parent, char *name, const char *name2, char *src, lv_event_cb_t callback){
 
     lv_obj_t *obj;
     lv_obj_t *icon;
@@ -181,7 +181,7 @@ void add_item(lv_obj_t *parent, char *name, char *src, lv_event_cb_t callback){
     lv_obj_add_event_cb(obj, callback, LV_EVENT_ALL, name);
 
     label = lv_label_create(obj);
-    lv_label_set_text(label, name);
+    lv_label_set_text(label, name2);
     lv_obj_center(label);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_obj_set_x(label, 30);
@@ -225,32 +225,33 @@ void ui_settingsScreen_init(void){
     lv_obj_set_style_pad_bottom(list1, 60, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     /*Add apps to the list*/
-    lv_list_add_text(list1, "System");
-    add_item(list1, "Display", LV_SYMBOL_IMAGE, &event_setup_open);
-    add_item(list1, "Battery", LV_SYMBOL_BATTERY_EMPTY, event_setup_open);
-    add_item(list1, "Storage", LV_SYMBOL_SD_CARD, event_setup_open);
-    add_item(list1, "About", LV_SYMBOL_HOME, event_setup_open);
+    lv_list_add_text(list1, str_txt(STR_SYSTEM).c_str()); //"System");
+    add_item(list1, "Display", str_txt(STR_DISPLAY).c_str(), LV_SYMBOL_IMAGE, &event_setup_open);
+    add_item(list1, "Battery", str_txt(STR_BATTERY).c_str(), LV_SYMBOL_BATTERY_EMPTY, event_setup_open);
+    add_item(list1, "Storage", str_txt(STR_STORAGE).c_str(), LV_SYMBOL_SD_CARD, event_setup_open);
+    add_item(list1, "About", str_txt(STR_ABOUT).c_str(), LV_SYMBOL_HOME, event_setup_open);
 
-    lv_list_add_text(list1, "Net & wireless");
-    add_item(list1, "SIM", LV_SYMBOL_SETTINGS, event_setup_open);
-    add_item(list1, "WiFi", LV_SYMBOL_WIFI, event_setup_open);
-    add_item(list1, "Bluetooth", LV_SYMBOL_BLUETOOTH, event_setup_open);
+    lv_list_add_text(list1, str_txt(STR_WIRELESS).c_str()); //"Net & wireless");
+    add_item(list1, "SIM", str_txt(STR_SIM).c_str(), LV_SYMBOL_SETTINGS, event_setup_open);
+    add_item(list1, "WiFi", str_txt(STR_WIFI).c_str(), LV_SYMBOL_WIFI, event_setup_open);
+    add_item(list1, "Bluetooth", str_txt(STR_BLUETOOTH).c_str(), LV_SYMBOL_BLUETOOTH, event_setup_open);
 
-    lv_list_add_text(list1, "Personalization");
-    add_item(list1, "Start", LV_SYMBOL_IMAGE, event_setup_open);
-    add_item(list1, "Colors", LV_SYMBOL_SETTINGS, event_setup_open);
-    add_item(list1, "Sound", LV_SYMBOL_VOLUME_MAX, event_setup_open);
-    add_item(list1, "Lock screen", LV_SYMBOL_IMAGE, event_setup_open);
+    lv_list_add_text(list1, str_txt(STR_PERSONALIZE).c_str()); //"Personalization");
+    add_item(list1, "Start", str_txt(STR_STRAT).c_str(), LV_SYMBOL_IMAGE, event_setup_open);
+    add_item(list1, "Colors", str_txt(STR_COLORS).c_str(), LV_SYMBOL_SETTINGS, event_setup_open);
+    add_item(list1, "Sound", str_txt(STR_SOUND).c_str(), LV_SYMBOL_VOLUME_MAX, event_setup_open);
+    add_item(list1, "Lock screen", str_txt(STR_LOCKSCREEN).c_str(), LV_SYMBOL_IMAGE, event_setup_open);
 
-    lv_list_add_text(list1, "Time & language");
-    add_item(list1, "Date & time", LV_SYMBOL_BELL, event_setup_open);
-    add_item(list1, "Language", LV_SYMBOL_SETTINGS, event_setup_open);
+    lv_list_add_text(list1, str_txt(STR_TIMELANG).c_str()); //"Time & language");
+    add_item(list1, "Date & time", str_txt(STR_DATETIME).c_str(), LV_SYMBOL_BELL, event_setup_open);
+    add_item(list1, "Language", str_txt(STR_LANGUAGE).c_str(), LV_SYMBOL_SETTINGS, event_setup_open);
 
-    lv_list_add_text(list1, "Update");
-    add_item(list1, "Update", LV_SYMBOL_UPLOAD, event_setup_open);
+    lv_list_add_text(list1, str_txt(STR_UPDATE).c_str()); //"Update");
+    add_item(list1, "Update", str_txt(STR_UPDATE).c_str(), LV_SYMBOL_UPLOAD, event_setup_open);
 
     lv_obj_t * header = create_header(ui_settingsScreen, str_txt(STR_SETTINGS).c_str());
-
+    // lv_obj_t * header = create_header(ui_settingsScreen, "Settings");
+ 
 }
 
 lv_obj_t * ui_app_settingsScreenApps(){

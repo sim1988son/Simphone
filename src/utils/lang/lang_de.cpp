@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include "config.h"
 #include "utils/lang.h"
-#include "lang_pl.h"
+#include "lang_de.h"
 
 
-String update_string_lang_pl(int _status){
+String update_string_lang_de(int _status){
     String lang_settings = "TxT";
     switch (_status)
     {
@@ -27,9 +27,6 @@ String update_string_lang_pl(int _status){
         case STR_DATETIME:  lang_settings="Data i czas";  return lang_settings; break;
         case STR_LANGUAGE:  lang_settings="Jezyk";  return lang_settings; break;
         case STR_UPDATE:    lang_settings="Aktualizacja";  return lang_settings; break;
-        case STR_BRIGHTNESS: lang_settings="Regulacja jasnosci";  return lang_settings; break;
-        case STR_AUTOMATIC: lang_settings="Automatycznie";  return lang_settings; break;
-        case STR_BATTSAVER: lang_settings="Oszczedzanie bateri";  return lang_settings; break;
         
     default: return lang_settings; break;
     }

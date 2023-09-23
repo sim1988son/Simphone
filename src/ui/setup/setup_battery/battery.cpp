@@ -1,17 +1,11 @@
 #include <Arduino.h>
 #include <string.h>
 #include "config.h"
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_battery/battery.h"
-// #include <vector>
-// #include <string.h>
-// #include "hardware/json_psram_allocator.h"
-// #include "hardware/alloc.h"
-// #include "littleFS.h"
-// #include <ESP32Time.h>
 
-// battery_config_t battery_config;
 
 lv_obj_t * ui_batteryScreen;
 lv_obj_t * ui_batterybtn;
@@ -22,7 +16,7 @@ lv_obj_t * ui_displaswitch;
 void openAppBattery(){
     closeApp();
     AppBattery();
-    launchApp("Battery", true);
+    launchApp(str_txt(STR_BATTERY).c_str(), true);
 }
 
 void AppBattery(){
@@ -34,7 +28,7 @@ void AppBattery(){
     ui_batterylabel = create_label(ui_batteryScreen,0, "28%", 20, 100, 20);
 
     ui_displaswitch = create_switch(ui_batteryScreen, 150, event_setup_back);
-    lv_obj_t * ui_displalabel = create_label(ui_batteryScreen,0, "Turn battery saver", 20, 150, 20);
+    lv_obj_t * ui_displalabel = create_label(ui_batteryScreen,0, str_txt(STR_BATTSAVER).c_str(), 20, 150, 20);
 
     lv_obj_t * ui_displaslider = create_slider(ui_batteryScreen, 20, 200, 280, 10, event_setup_back);
     

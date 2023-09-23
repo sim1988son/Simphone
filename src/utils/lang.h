@@ -4,47 +4,47 @@
 #include <Arduino.h>
 // #include "config.h"
 #include "lang/lang_pl.h"
-// #include "lang/lang_en.h"
-// #include "lang/lang_de.h"
+#include "lang/lang_en.h"
+#include "lang/lang_de.h"
 // #define NUMLANG 3
 
-typedef enum {
-        UI_LANG_PL = 0,
-        UI_LANG_DE ,
-        UI_LANG_EN,
+enum 
+{
+    UI_LANG_PL = 0,
+    UI_LANG_DE ,
+    UI_LANG_EN
+};
 
-    } status;
-
-typedef enum {
-        STR_SETTINGS = 0,
-        STR_WIFI,
-
-    } txt_string;
-
-
-
-// void update_string_lang(uint16_t _status){
-//     switch (_status)
-//     {
-//     case UI_LANG_PL:
-//         update_string_lang_pl();
-//         break;
-//     case UI_LANG_DE:
-//         update_string_lang_de();
-//         break;
-//     case UI_LANG_EN:
-//         update_string_lang_en();
-//         break;
+enum 
+{
+    STR_SETTINGS = 0,
+    STR_SYSTEM,
+    STR_DISPLAY,
+    STR_BATTERY,
+    STR_STORAGE,
+    STR_ABOUT,
+    STR_WIRELESS,
+    STR_SIM,
+    STR_WIFI,
+    STR_BLUETOOTH,
+    STR_PERSONALIZE,
+    STR_STRAT,
+    STR_COLORS,
+    STR_SOUND,
+    STR_LOCKSCREEN,
+    STR_TIMELANG,
+    STR_DATETIME,
+    STR_LANGUAGE,
+    STR_UPDATE,
+    STR_BRIGHTNESS,
+    STR_AUTOMATIC,
+    STR_BATTSAVER
     
-//     default:
-//         break;
-//     }
-//     txt_settings = lang_settings;
-// }
+};
 
 
 uint16_t get_language(void);
 
-String str_txt(uint16_t _status);
+String str_txt(int _status);
 
 #endif

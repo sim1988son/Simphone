@@ -1,12 +1,12 @@
 #include <Arduino.h>
 #include "config.h"
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "hardware/displayset.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_storage/storage.h"
 #include "littleFS.h"
 #include "SD.h"
-
 
 
 
@@ -41,7 +41,7 @@ static void ui_storageScreen_event(lv_event_t *e){
 void openAppStorage(){
     closeApp();
     AppStorage();
-    launchApp("Storage", true);
+    launchApp(str_txt(STR_STORAGE).c_str(), true);
 }
 
 void AppStorage(){

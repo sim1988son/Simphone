@@ -44,10 +44,30 @@ static lv_disp_drv_t disp_drv;
 
 void init_WT32( void );
 
-// typedef enum {
-//         STR_SETTINGS = 0,
-//         STR_WIFI,
+// enum 
+// {
+//     STR_SETTINGS = 0,
+//     STR_SYSTEM,
+//     STR_DISPLAY,
+//     STR_BATTERY,
+//     STR_STORAGE,
+//     STR_ABOUT,
+//     STR_WIRELESS,
+//     STR_SIM,
+//     STR_WIFI,
+//     STR_BLUETOOTH,
+//     STR_PERSONALIZE,
+//     STR_STRAT,
+//     STR_COLORS,
+//     STR_SOUND,
+//     STR_LOCKSCREEN,
+//     STR_TIMELANG,
+//     STR_DATETIME,
+//     STR_LANGUAGE,
+//     STR_UPDATE
+    
 
-//     } txt_string;
+// };
+
 
 #endif
