@@ -53,7 +53,7 @@ void AppStorage(){
     
     lv_obj_t * ui_storagelabel;
     char temp[80]="";
-    ui_storagelabel = create_label(ui_storageScreen, 0, "Flash", 20, 70, 20);
+    ui_storagelabel = create_label(ui_storageScreen, 0, str_txt(STR_STORAGEINTERNAL).c_str(), 20, 70, 20);
     uint64_t total = ESP.getFlashChipSize()/1024;
     uint64_t free = LittleFS.totalBytes()/1024;
     uint64_t ussd = LittleFS.usedBytes()/1024;
@@ -70,7 +70,7 @@ void AppStorage(){
     lv_obj_set_style_radius(ui_storagebar, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui_storagebar, 5, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     
-    ui_storagelabel = create_label(ui_storageScreen, 0, "SD Card", 20, 170, 20);
+    ui_storagelabel = create_label(ui_storageScreen, 0, str_txt(STR_MEMORYCARD).c_str(), 20, 170, 20);
     uint64_t cardSize = SD.cardSize() / (1024 * 1024);
     uint64_t usedSize = SD.usedBytes() / (1024 * 1024);
     lv_snprintf( temp, sizeof( temp ), "%llu MB / %llu MB", usedSize, cardSize );

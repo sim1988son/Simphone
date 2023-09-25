@@ -16,6 +16,7 @@
 
 void openAppColors();
 void AppColors();
+void color_get_darkon();
 void lv_set_theme_color(void);
 // void colorsetup_save_config( void );
 // void colorsetup_load_config( void );

@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <string.h>
 #include "config.h"
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_sound/sound.h"
@@ -24,14 +25,12 @@ static void ui_soundScreen_event(lv_event_t *e){
 void openAppSound(){
     closeApp();
     AppSound();
-    launchApp("Sound", true);
+    launchApp(str_txt(STR_SOUND).c_str(), true);
 }
 
 void AppSound(){
     lv_obj_t *canvas = app_canvas();
     ui_soundScreen = create_obj(canvas);
-    // ui_soundScreen = create_header(ui_app_settingsScreen(), "Sound");
-    // ui_soundbtn = create_btn_header(ui_soundScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_soundScreen);
-
+   
 
 }

@@ -2,16 +2,10 @@
 #include <string.h>
 #include "config.h"
 #include "hardware/displayset.h"
-
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_color/color.h"
-// #include "ui/setup/setup_start/start.h"
-// #include "hardware/json_psram_allocator.h"
-// #include "hardware/alloc.h"
-// #include "littleFS.h"
-
-// colorsetup_config_t colorsetup_config;
 
 lv_obj_t * ui_colorsScreen;
 lv_obj_t * ui_colorsbtn;
@@ -39,9 +33,11 @@ static void ui_colorobjcb_event(lv_event_t *e){
     if (code == LV_EVENT_CLICKED){
         if (obj == ui_colorobjlighten){
             display_set_display_darkon(false);
+            color_get_darkon();
         }
         if (obj == ui_colorobjdarken){
             display_set_display_darkon( true);
+            color_get_darkon();
         }
         if (obj == ui_colorobj_blue){
             // colorsetup_config.cprimary = 0x005fff;//lv_color_hex(LV_PALETTE_RED);
@@ -69,40 +65,56 @@ static void ui_colorobjcb_event(lv_event_t *e){
 void openAppColors(){
     closeApp();
     AppColors();
-    launchApp("Colors", true);
+    launchApp(str_txt(STR_COLORS).c_str(), true);
 }
 
 void AppColors(){
     lv_obj_t *canvas = app_canvas();
     ui_colorsScreen = create_obj(canvas);
-    // ui_colorsScreen = create_header(ui_app_settingsScreen(), "Colors");
-    // ui_colorsbtn = create_btn_header(ui_colorsScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_colorsScreen);
-
 
     lv_color_t c;
     lv_color_t d;
     c = lv_theme_get_color_primary(NULL);
     d = lv_theme_get_color_secondary(NULL);
 
-    ui_colorobjlighten = create_obj(ui_colorsScreen, -70, 80, 90, 120, lv_color_white());
+    ui_colorslabel = create_label(ui_colorsScreen,0, str_txt(STR_SYSTEMTHEME).c_str(), 20, 100, 20);
+    
+    ui_colorobjlighten = create_obj(ui_colorsScreen, -70, 140, 100, 120, lv_color_white());
+    lv_obj_set_style_shadow_color(ui_colorobjlighten ,lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui_colorobjlighten, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_add_event_cb(ui_colorobjlighten, ui_colorobjcb_event, LV_EVENT_ALL , NULL);
     ui_colorobjlighten1 = create_obj(ui_colorobjlighten, -10, 65, 60, 20, c);
     ui_colorobjlighten2 = create_obj(ui_colorobjlighten, 10, 90, 60, 20, d);
-    ui_colorslabel = create_label(ui_colorsScreen,0, "Light", 60, 210, 20);
+    ui_colorslabel = create_label(ui_colorsScreen,0, str_txt(STR_COLORLIGHT).c_str(), 60, 260, 20);
 
-    ui_colorobjdarken = create_obj(ui_colorsScreen, 70, 80, 90, 120, lv_color_hex(0x070709));
+    ui_colorobjdarken = create_obj(ui_colorsScreen, 70, 140, 100, 120, lv_color_hex(0x070709));
+    lv_obj_set_style_shadow_color(ui_colorobjdarken ,lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui_colorobjdarken, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_add_event_cb(ui_colorobjdarken, ui_colorobjcb_event, LV_EVENT_ALL , NULL);
     ui_colorobjdarken1 = create_obj(ui_colorobjdarken, -10, 65, 60, 20, c);
     ui_colorobjdarken2 = create_obj(ui_colorobjdarken, 10, 90, 60, 20, d);
-    ui_colorslabel = create_label(ui_colorsScreen,0, "Dark", 210, 200, 20);
+    ui_colorslabel = create_label(ui_colorsScreen,0, str_txt(STR_COLORDARK).c_str(), 210, 260, 20);
 
-    ui_colorslabel = create_label(ui_colorsScreen,0, "Color primary", 20, 270, 20);
-    ui_colorobj_blue = create_obj_color(ui_colorsScreen, 20, 300, 50, 0x005fff, ui_colorobjcb_event);
-    ui_colorobj_red = create_obj_color(ui_colorsScreen, 95, 300, 50, 0xcd0000, ui_colorobjcb_event);
-    ui_colorobj_yelow = create_obj_color(ui_colorsScreen, 175, 300, 50, 0xcdcd00, ui_colorobjcb_event);
-    ui_colorobj_green = create_obj_color(ui_colorsScreen, 250, 300, 50, 0x00cd00, ui_colorobjcb_event);
+    
+    color_get_darkon();
+
+    ui_colorslabel = create_label(ui_colorsScreen,0, str_txt(STR_COLORPRIMARY).c_str(), 20, 300, 20);
+    ui_colorobj_blue = create_obj_color(ui_colorsScreen, 20, 330, 50, 0x005fff, ui_colorobjcb_event);
+    ui_colorobj_red = create_obj_color(ui_colorsScreen, 95, 330, 50, 0xcd0000, ui_colorobjcb_event);
+    ui_colorobj_yelow = create_obj_color(ui_colorsScreen, 175, 330, 50, 0xcdcd00, ui_colorobjcb_event);
+    ui_colorobj_green = create_obj_color(ui_colorsScreen, 250, 330, 50, 0x00cd00, ui_colorobjcb_event);
    
 
+}
+
+void color_get_darkon(){
+    if(display_get_display_darkon()){
+        lv_obj_set_style_shadow_width(ui_colorobjlighten, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_shadow_width(ui_colorobjdarken, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+    }else{
+        lv_obj_set_style_shadow_width(ui_colorobjlighten, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_shadow_width(ui_colorobjdarken, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    }
 }
 
 void lv_set_theme_color(void){ 

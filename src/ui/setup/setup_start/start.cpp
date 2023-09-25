@@ -2,19 +2,13 @@
 #include <string.h>
 #include "config.h"
 #include "hardware/displayset.h"
-
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_start/start.h"
-// #include "hardware/json_psram_allocator.h"
-// #include "hardware/alloc.h"
-// #include "littleFS.h"
 
 // LV_IMG_DECLARE( bg1_320x480px );
 // const lv_img_dsc_t bg1 = bg1_320x480px;
-
-// start_config_t start_config;
-
 
 lv_obj_t * ui_StartScreen;
 lv_obj_t * ui_startbtn;
@@ -27,16 +21,16 @@ lv_obj_t * ui_backgrlabel;
 lv_obj_t * ui_backgrslider;
 lv_obj_t * ui_backgrddd;
 
-static void ui_StartScreen_event(lv_event_t *e){
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t *obj = lv_event_get_target(e);
-    lv_disp_t *display = lv_disp_get_default();
-    lv_obj_t *actScr = lv_disp_get_scr_act(display);
+// static void ui_StartScreen_event(lv_event_t *e){
+//     lv_event_code_t code = lv_event_get_code(e);
+//     lv_obj_t *obj = lv_event_get_target(e);
+//     lv_disp_t *display = lv_disp_get_default();
+//     lv_obj_t *actScr = lv_disp_get_scr_act(display);
 
-    if (code == LV_EVENT_CLICKED){
+//     if (code == LV_EVENT_CLICKED){
         
-    }
-}
+//     }
+// }
 
 static void ui_startSlider_event(lv_event_t *e){
     lv_event_code_t code = lv_event_get_code(e);
@@ -51,18 +45,12 @@ static void ui_startSlider_event(lv_event_t *e){
 void openAppStart(){
     closeApp();
     AppStart();
-    launchApp("Start", true);
+    launchApp(str_txt(STR_STRAT).c_str(), true);
 }
 
 void AppStart(){
     lv_obj_t *canvas = app_canvas();
     ui_StartScreen = create_obj(canvas);
-    // start_load_config();
-
-    // ui_StartScreen = create_header(ui_app_settingsScreen(), "Start");
-    // ui_startbtn = create_btn_header(ui_StartScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_StartScreen);
-
-
 
     ui_backgrobj = lv_obj_create(ui_StartScreen);
     lv_obj_set_width(ui_backgrobj, 320/3);  /// 1
@@ -113,7 +101,7 @@ void AppStart(){
     // set_opa(start_config.start_trans);
     // start_app_opa(start_config.start_trans);
 
-    ui_backgrlabel = create_label(ui_StartScreen, 0, "Background", 20, 250, 20);
+    ui_backgrlabel = create_label(ui_StartScreen, 0, str_txt(STR_BACKGROUND).c_str(), 20, 250, 20);
     ui_backgrddd = lv_dropdown_create(ui_StartScreen);
     lv_dropdown_set_options(ui_backgrddd,   "bg1\n" 
                                             "bg2\n"
@@ -125,7 +113,7 @@ void AppStart(){
     lv_dropdown_set_selected(ui_backgrddd, display_get_display_bg());
     lv_obj_add_event_cb(ui_backgrddd, ui_startSlider_event, LV_EVENT_ALL, NULL);
 
-    ui_backgrlabel = create_label(ui_StartScreen, 0, "Tile transparency", 20, 300, 20);
+    ui_backgrlabel = create_label(ui_StartScreen, 0, str_txt(STR_TILETRANSPA).c_str(), 20, 300, 20);
     ui_backgrslider = create_slider(ui_StartScreen, 20, 350, 280, 10, ui_startSlider_event);
     lv_slider_set_range(ui_backgrslider, 50 , 255);
     // lv_slider_set_value(ui_backgrslider, start_config.start_trans, LV_ANIM_OFF);

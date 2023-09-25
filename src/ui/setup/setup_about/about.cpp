@@ -2,6 +2,7 @@
 #include <string.h>
 #include "littleFS.h"
 #include "config.h"
+#include "utils/lang.h"
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_about/about.h"
@@ -14,7 +15,7 @@ lv_obj_t * ui_aboutText;
 void openAppAbout(){
     closeApp();
     AppAbout();
-    launchApp("About", true);
+    launchApp(str_txt(STR_ABOUT).c_str(), true);
 }
 
 void AppAbout(){

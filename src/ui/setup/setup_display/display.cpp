@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "config.h"
 #include "hardware/displayset.h"
-#include "utils/lang.h"
+#include "utils/lang.h" 
 #include "ui/ui.h"
 #include "ui/setup/setup.h"
 #include "ui/setup/setup_display/display.h"
@@ -50,10 +50,8 @@ void openAppDisplay(){
 void AppDisplay(){
     lv_obj_t *canvas = app_canvas();
     ui_displayScreen = create_obj(canvas);
-    // ui_displayScreen = create_header(ui_app_settingsScreen(), "Display");
     lv_obj_add_event_cb(ui_displayScreen, ui_displayScreen_event, LV_EVENT_DELETE, NULL);
-    // ui_displaybtn = create_btn_header(ui_displayScreen, LV_SYMBOL_LEFT, 0, 0, 70, 50, event_setup_back, ui_displayScreen);
-
+    
     ui_displaylabel = create_label(ui_displayScreen,0, str_txt(STR_BRIGHTNESS).c_str(), 20, 100, 20);
     ui_displayslider = create_slider(ui_displayScreen, 20, 150, 280, 10, ui_displaySlider_event);
     lv_slider_set_range(ui_displayslider, DISPLAY_MIN_BRIGHTNESS , DISPLAY_MAX_BRIGHTNESS);

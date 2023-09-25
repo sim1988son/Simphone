@@ -15,6 +15,7 @@
 
 void openAppLockScreen();
 void AppLockScreen();
+void lockscreen_set_slider_time();
 // void lock_save_config(void);
 // void lock_load_config(void);
 // void lock_obj_color_bg(void);
