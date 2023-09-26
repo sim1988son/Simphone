@@ -211,7 +211,7 @@ void ui_settingsScreen_init(void){
     ui_settingsScreen = create_obj(NULL);
 
     list1 = lv_list_create(ui_settingsScreen);
-    lv_obj_set_size(list1, 320, 410);
+    lv_obj_set_size(list1, 320, 430);
     lv_obj_set_x(list1, 0);
     lv_obj_set_y(list1, 0);
     lv_obj_set_align(list1, LV_ALIGN_TOP_MID);
@@ -222,7 +222,7 @@ void ui_settingsScreen_init(void){
     lv_obj_set_style_border_width(list1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_scrollbar_mode(list1, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_pad_top(list1, 70, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(list1, 60, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(list1, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     /*Add apps to the list*/
     lv_list_add_text(list1, str_txt(STR_SYSTEM).c_str()); //"System");
@@ -284,20 +284,20 @@ void ui_settingsScreenApps_init(void){
     lv_obj_set_style_text_font(ui_appLabel, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
-    AppAbout();
-    AppBattery();
-    AppBluetooth();
-    AppColors();
-    AppDateTime();
-    AppDisplay();
-    AppLanguage();
-    AppLockScreen();
-    AppSIM();
-    AppSound();
-    AppStart();
-    AppStorage();
-    AppUpdate();
-    Appwifi();
+    // AppAbout();
+    // AppBattery();
+    // AppBluetooth();
+    // AppColors();
+    // AppDateTime();
+    // AppDisplay();
+    // AppLanguage();
+    // AppLockScreen();
+    // AppSIM();
+    // AppSound();
+    // AppStart();
+    // AppStorage();
+    // AppUpdate();
+    // Appwifi();
 }
 
 void launchApp(const char *name, bool header){

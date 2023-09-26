@@ -11,8 +11,8 @@
 enum 
 {
     UI_LANG_PL = 0,
-    UI_LANG_DE ,
-    UI_LANG_EN
+    UI_LANG_EN,
+    UI_LANG_DE
 };
 
 enum 
@@ -50,14 +50,12 @@ enum
     STR_SCREENTIMEOUT,
     STR_TIMENEVER,
     STR_LANGUAGES,
-    STR_LANGDROP,
-    STR_ENGLISH,
-    STR_GERMAN
+    STR_LANGDROP
     
 };
 
 
-uint16_t get_language(void);
+uint16_t get_language();
 
 String str_txt(int _status);
 

@@ -30,6 +30,8 @@ void display_setup( void ){
     // display_set_brightness((int)display_get_display_brig());
     log_i("Init Display %d", (int)display_get_display_brig());
 
+    // log_i("%d",display_get_display_lang());
+
     power_register_cb( POWERMGM_SILENCE_WAKEUP | POWERMGM_STANDBY | POWERMGM_WAKEUP, display_power_event_cb, "display" );
     power_register_loop_cb( POWERMGM_WAKEUP, display_power_loop_cb, "display loop" );
 }
@@ -121,6 +123,7 @@ void display_save_config( void ) {
         doc["display_bg"    ] = display_config.display_bg;
         doc["display_look"  ] = display_config.display_look;
         doc["display_darkon"] = display_config.display_darkon;
+        doc["display_lang"  ] = display_config.display_lang;
         if ( serializeJsonPretty( doc, file ) == 0) {
             log_e("Failed to write config file");
         }
@@ -147,6 +150,7 @@ void display_load_config( void ) {
             display_config.display_bg       = doc["display_bg"]     | 1;
             display_config.display_look     = doc["display_look"]   | 1;
             display_config.display_darkon   = doc["display_darkon"] | false;
+            display_config.display_lang     = doc["display_lang"]   | 0;
         }        
         doc.clear();
     }
@@ -206,4 +210,11 @@ void display_set_display_darkon( bool display_darkon ){
     display_config.display_darkon = display_darkon;
 }
 
-
+uint16_t display_get_display_lang(){
+    return( display_config.display_lang );
+}
+    
+void display_set_display_lang( uint16_t display_lang ){
+    display_config.display_lang = display_lang;
+}
+    

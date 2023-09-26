@@ -27,6 +27,21 @@ String update_string_lang_de(int _status){
         case STR_DATETIME:  lang_settings="Data i czas";  return lang_settings; break;
         case STR_LANGUAGE:  lang_settings="Jezyk";  return lang_settings; break;
         case STR_UPDATE:    lang_settings="Aktualizacja";  return lang_settings; break;
+        case STR_BRIGHTNESS: lang_settings="Adjust brightness";  return lang_settings; break;
+        case STR_AUTOMATIC:     lang_settings="Automatycznie";  return lang_settings; break;
+        case STR_BATTSAVER:     lang_settings="Oszczedzanie bateri";  return lang_settings; break;
+        case STR_STORAGEINTERNAL: lang_settings="Pamiec wewnetrzna";  return lang_settings; break;
+        case STR_MEMORYCARD:    lang_settings="Karta pamieci";  return lang_settings; break;
+        case STR_BACKGROUND:    lang_settings="Tlo";  return lang_settings; break;
+        case STR_TILETRANSPA:   lang_settings="Kafelek przezroczystosc";  return lang_settings; break;
+        case STR_SYSTEMTHEME:   lang_settings="Motyw systemu";  return lang_settings; break;
+        case STR_COLORPRIMARY:  lang_settings="Color wiodacy";  return lang_settings; break;
+        case STR_COLORLIGHT:    lang_settings="Jasny";  return lang_settings; break;
+        case STR_COLORDARK:     lang_settings="Ciemny";  return lang_settings; break;
+        case STR_SCREENTIMEOUT: lang_settings="Bildschi";  return lang_settings; break;
+        case STR_TIMENEVER:     lang_settings="niemals";  return lang_settings; break;
+        case STR_LANGUAGES:     lang_settings="Sprachen";  return lang_settings; break;
+        case STR_LANGDROP:      lang_settings="polnisch\nenglisch\ndeutsch";  return lang_settings; break;
         
     default: return lang_settings; break;
     }

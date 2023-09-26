@@ -65,7 +65,7 @@ void setup() {
   tft.init();        // Initialize LovyanGFX
   tft.setRotation(2);
   tft.setBrightness(10);
-  tft.fillScreen(TFT_RED);
+  tft.fillScreen(TFT_BLACK);
 
   display_setup();
 
@@ -103,14 +103,17 @@ void setup() {
     lv_indev_drv_register(&indev_drv);  
   }
   
+  
   hardware_setup();
   
+  splash_screen_stage_boot();
+
   uint16_t currentMillis = millis();
   while (currentMillis + 500 > millis()){
     lv_timer_handler();
   }
 
-  // update_string_lang(UI_LANG_DE);
+  if(wifictl_get_autoon()) wifictl_on();
 
   ui_init();
   openStart();
@@ -119,8 +122,6 @@ void setup() {
   while (currentMillis + 500 > millis()){
     lv_timer_handler();
   }
-
-  if(wifictl_get_autoon()) wifictl_on();
 
   display_set_brightness((int)display_get_display_brig());
 

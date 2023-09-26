@@ -61,7 +61,7 @@
     void wifictl_set_event( EventBits_t bits );
     bool wifictl_get_event( EventBits_t bits );
     void wifictl_clear_event( EventBits_t bits );
-
+    bool wifictl_send_event_cb( EventBits_t event, void *arg );
     void wifictl_standby( void );
 
     void wifictl_wakeup( void );

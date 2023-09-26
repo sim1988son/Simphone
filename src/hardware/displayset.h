@@ -26,7 +26,7 @@
         uint16_t    display_bg      = 1; 
         uint16_t    display_look    = 1; 
         bool        display_darkon  = false;
-        // uint32_t brightness = DISPLAY_MAX_BRIGHTNESS;   /** @brief display brightness */
+        uint16_t    display_lang    = 0;  
         // uint32_t timeout = DISPLAY_MIN_TIMEOUT;         /** @brief display time out */
         // uint32_t rotation = 0;                          /** @brief display rotation */
         // bool block_return_maintile = false;             /** @brief block back to main tile on standby */
@@ -34,33 +34,35 @@
         // uint32_t background_image = 2;                  /** @brief background image */
     } display_config_t;
 
-    void display_setup( void );
-    void display_loop( void );
+    void display_setup(  );
+    void display_loop(  );
 
-    void display_save_config( void );
-    void display_load_config( void );
+    void display_save_config(  );
+    void display_load_config(  );
 
-    bool display_get_display_auto( void );
+    bool display_get_display_auto(  );
     void display_set_display_auto( bool display_auto );
 
-    uint16_t display_get_display_brig( void );
+    uint16_t display_get_display_brig(  );
     void display_set_display_brig( uint16_t display_brig );
 
     void display_set_brightness(int brig);
     
-    uint16_t display_get_display_times( void );
+    uint16_t display_get_display_times(  );
     void display_set_display_times( uint16_t display_times );
 
-    uint16_t display_get_display_bg( void );
+    uint16_t display_get_display_bg(  );
     void display_set_display_bg( uint16_t display_bg );
 
-    uint16_t display_get_display_look( void );
+    uint16_t display_get_display_look(  );
     void display_set_display_look( uint16_t display_look );
 
-    bool display_get_display_darkon( void );
+    bool display_get_display_darkon(  );
     void display_set_display_darkon( bool display_darkon );
     
-
+    uint16_t display_get_display_lang(  );
+    void display_set_display_lang( uint16_t display_lang );
+    
     // uint32_t display_get_rotation( void );
 
     // void display_set_rotation( uint32_t rotation );

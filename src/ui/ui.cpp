@@ -99,11 +99,11 @@ static void event_action_wifi(lv_event_t *e){
         if (lv_obj_has_state(obj, LV_STATE_CHECKED)){
             // log_i("NOTIFI WIFION OFF");
             wifictl_off();
-            wifictl_set_autoon( false );
+            // wifictl_set_autoon( false );
         } else {
             // log_i("NOTIFI WIFION ON");
             wifictl_on();
-            wifictl_set_autoon( true );
+            // wifictl_set_autoon( true );
         }
     }
 }
@@ -780,6 +780,8 @@ lv_obj_t * ui_app_startScreen(){
 }
 
 void openSettings(void){
+    lv_obj_clean(ui_app_settingsScreen());
+    ui_settingsScreen_init();
     lv_obj_set_parent(ui_Panel2, ui_app_settingsScreen());
     lv_obj_set_parent(ui_notificationPanel, ui_app_settingsScreen());
     lv_obj_set_parent(ui_statusBar, ui_app_settingsScreen());
@@ -809,10 +811,10 @@ void ui_startScreen_init(void){
     // tile view
     ui_tileView = lv_tileview_create(ui_startScreen);
     lv_obj_set_width(ui_tileView, 320);
-    lv_obj_set_height(ui_tileView, 450);
+    lv_obj_set_height(ui_tileView, 400);
     lv_obj_set_x(ui_tileView, 0);
     lv_obj_set_y(ui_tileView, 30);
-    lv_obj_set_align(ui_tileView, LV_ALIGN_CENTER);
+    lv_obj_set_align(ui_tileView, LV_ALIGN_TOP_MID);
     lv_obj_set_scrollbar_mode(ui_tileView, LV_SCROLLBAR_MODE_OFF);
     static lv_coord_t col_dsc[] = {80, 80, 80, LV_GRID_TEMPLATE_LAST};
     static lv_coord_t row_dsc[] = {110, 110, 110, 110, 110, LV_GRID_TEMPLATE_LAST};
@@ -821,8 +823,9 @@ void ui_startScreen_init(void){
     cont = lv_obj_create(ui_tileView);
     lv_obj_set_style_grid_column_dsc_array(cont, col_dsc, 0);
     lv_obj_set_style_grid_row_dsc_array(cont, row_dsc, 0);
-    lv_obj_set_size(cont, 320, 480);
-    lv_obj_center(cont);
+    lv_obj_set_size(cont, 320, 400);
+    // lv_obj_center(cont);
+    lv_obj_set_align(cont, LV_ALIGN_TOP_MID);
     lv_obj_set_layout(cont, LV_LAYOUT_GRID);
 
     lv_obj_set_style_pad_top(cont, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -935,6 +938,17 @@ void splash_screen_stage_boot(){
     lv_obj_set_y(ui_bootScreen, 0);
     lv_obj_set_align(ui_bootScreen, LV_ALIGN_CENTER);
 
+    /*Create an Arc*/
+    lv_obj_t * arc = lv_arc_create(ui_bootScreen);
+    lv_obj_set_size(arc, 200, 200);
+    lv_arc_set_rotation(arc, 270);
+    lv_arc_set_bg_angles(arc, 0, 360);
+    // lv_arc_set_change_rate(arc, 30);
+    lv_arc_set_value(arc, 0);
+    lv_obj_remove_style(arc, NULL, LV_PART_KNOB);   /*Be sure the knob is not displayed*/
+    lv_obj_clear_flag(arc, LV_OBJ_FLAG_CLICKABLE);  /*To not allow adjusting by click*/
+    lv_obj_center(arc);
+
     lv_obj_t * ui_bootlabel= lv_label_create(ui_bootScreen);
     lv_obj_set_width(ui_bootlabel, LV_SIZE_CONTENT);
     lv_obj_set_height(ui_bootlabel, LV_SIZE_CONTENT);
@@ -950,8 +964,13 @@ void splash_screen_stage_boot(){
         tftt.setBrightness( bl );
         delay(5);
     }  
-    lv_timer_handler();
-    delay(1000);
+
+    for (int i = 0; i < 100; i++){
+        lv_arc_set_value(arc, i);
+        lv_timer_handler();
+        delay(30);    
+    }
+    
     for( int bl = display_get_display_brig() ; bl >= 0 ; bl-- ) {
         tftt.setBrightness( bl );
         delay(5);
@@ -960,27 +979,27 @@ void splash_screen_stage_boot(){
     lv_timer_handler();
 }
 
-void splash_screen_stage_update( const char* msg, int value ) {;
-    // lv_disp_trig_activity( NULL );
-    // lv_timer_handler();
-    // //delay(100);
-    // lv_bar_set_value( preload, value, LV_ANIM_ON );
-    // lv_label_set_text( preload_label, msg );
+// void splash_screen_stage_update( const char* msg, int value ) {;
+//     // lv_disp_trig_activity( NULL );
+//     // lv_timer_handler();
+//     // //delay(100);
+//     // lv_bar_set_value( preload, value, LV_ANIM_ON );
+//     // lv_label_set_text( preload_label, msg );
     
-    // for( int bl = 0 ; bl < 500 ; bl++ ) {
-    //     lv_timer_handler();
-    //     delay(1);
-    // }
-}
+//     // for( int bl = 0 ; bl < 500 ; bl++ ) {
+//     //     lv_timer_handler();
+//     //     delay(1);
+//     // }
+// }
 
-void splash_screen_stage_finish( void ) {
-    // for( int bl = display_get_display_brig() ; bl >= 0 ; bl-- ) {
-    //     tftt.setBrightness( bl );
-    //     delay(5);
-    // }
-    // lv_obj_del(ui_bootScreen);
-    // lv_timer_handler();
-}
+// void splash_screen_stage_finish( void ) {
+//     // for( int bl = display_get_display_brig() ; bl >= 0 ; bl-- ) {
+//     //     tftt.setBrightness( bl );
+//     //     delay(5);
+//     // }
+//     // lv_obj_del(ui_bootScreen);
+//     // lv_timer_handler();
+// }
 
 // panel notyfication
 void create_action_tile(lv_obj_t *parent, lv_obj_t *obj2, char *name, const void *src, bool checked, int col, int row, int size, int action, lv_event_cb_t callback){
@@ -1051,7 +1070,7 @@ void notification_panel(lv_obj_t *parent){
     lv_obj_set_style_pad_column(ui_actionPanel, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     create_action_tile(ui_actionPanel, ui_btnwifi,  "WiFi",     NULL, wifictl_get_autoon() , 0, 0, 1, 2, event_action_wifi);
-    create_action_tile(ui_actionPanel, ui_btnble,   "Buetooth", NULL, true, 1, 0, 1, 3, event_action_ble);
+    create_action_tile(ui_actionPanel, ui_btnble,   "Buetooth", NULL, false, 1, 0, 1, 3, event_action_ble);
     create_action_tile(ui_actionPanel, ui_btnvol,   "Volume",   NULL, false, 2, 0, 1, 4, event_action_vol);
     create_action_tile(ui_actionPanel, ui_btnflash, "Flash",    NULL, false, 3, 0, 1, 7, event_action_flash);
 
@@ -1132,7 +1151,7 @@ void navigation(lv_obj_t *parent)
     // lv_obj_set_style_bg_color(ui_Panel2, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Panel2, 25, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Panel2, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_side(ui_Panel2, LV_BORDER_SIDE_TOP, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_side(ui_Panel2, LV_BORDER_SIDE_TOP, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_all(ui_Panel2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     // ui_startButton

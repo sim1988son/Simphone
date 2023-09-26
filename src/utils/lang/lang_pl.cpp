@@ -42,8 +42,6 @@ String update_string_lang_pl(int _status){
         case STR_TIMENEVER:     lang_settings="nigdy";  return lang_settings; break;
         case STR_LANGUAGES:     lang_settings="Jezyki";  return lang_settings; break;
         case STR_LANGDROP:      lang_settings="polski\nangielski\nniemiecki";  return lang_settings; break;
-        case STR_ENGLISH:       lang_settings="angielsk\n";  return lang_settings; break;
-        case STR_GERMAN:        lang_settings="niemiecki\n";  return lang_settings; break;
         
     default: return lang_settings; break;
     }
