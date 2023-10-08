@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LGFX_HPP
+#define LGFX_HPP
 
 #define LGFX_USE_V1
 
@@ -15,3 +16,5 @@ private:
 public:
     LGFX();
 };
+
+#endif

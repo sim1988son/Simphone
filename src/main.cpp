@@ -11,7 +11,7 @@
 
 #include "Audio.h"
 
-#include <lgfx.h>
+#include <lgfx.hpp>
 LGFX tft;
 
 
